@@ -282,7 +282,7 @@ $('#voce').onclick=e=>{voce=!voce; e.currentTarget.setAttribute('aria-pressed',v
 /* ----- navigazione ----- */
 function vai(i){
   cur=Math.max(0,Math.min(slides.length-1,i));
-  slides.forEach((s,k)=>s.classList.toggle('on',k===cur)); $('#saluto')?.pause();
+  slides.forEach((s,k)=>s.classList.toggle('on',k===cur)); $$('video').forEach(v=>v.pause());
   $('#conta').textContent=(cur+1)+' / '+slides.length; $('#palco').scrollTop=0;
   const h=slides[cur].dataset.hook; if(h&&HOOK[h])HOOK[h](slides[cur]);
   parla(slides[cur].dataset.say);
@@ -378,6 +378,7 @@ function coriandoli(){
 $('#festa').onclick=()=>{coriandoli();parla('Evviva! Sentite che bello stare lassù? Adesso alleniamoci per restarci.')};
 
 $('#saluto').addEventListener('play',()=>{try{speechSynthesis.cancel()}catch(e){}});
+$$('video').forEach(v=>v.addEventListener('play',()=>{try{speechSynthesis.cancel()}catch(e){}}));
 vai(0);
 </script>
 </body>
